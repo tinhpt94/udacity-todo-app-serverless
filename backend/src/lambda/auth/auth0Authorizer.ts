@@ -3,7 +3,7 @@ import { APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerResult } from 'aws-
 import { verify } from 'jsonwebtoken';
 import JwksRsa, { CertSigningKey } from 'jwks-rsa';
 import { createLogger } from '../../utils/logger';
-import { JwtPayload } from './jwt.d';
+import { JwtPayload } from '../../models/jwt';
 
 const logger = createLogger('auth');
 

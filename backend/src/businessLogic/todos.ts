@@ -2,7 +2,9 @@ import * as uuid from 'uuid';
 import * as AWS from 'aws-sdk';
 import { TodoAccess } from '../dataLayer/todoAccess';
 import { getUserId } from '../utils/getJwt';
-import { TodoItem, TodoCreate, TodoUpdate } from '../models/Todo.d';
+import { TodoItem } from '../models/Todo.d';
+import { CreateTodoRequest } from '../requests/CreateTodoRequest';
+import { UpdateTodoRequest } from '../requests/UpdateTodoRequest';
 
 const todoAccess = new TodoAccess();
 
@@ -16,7 +18,7 @@ export async function getTodo(jwtToken: string, todoId: string): Promise<TodoIte
   return todoAccess.getTodo(userId, todoId);
 }
 
-export async function createTodo(jwtToken: string, newTodoData: TodoCreate): Promise<TodoItem> {
+export async function createTodo(jwtToken: string, newTodoData: CreateTodoRequest): Promise<TodoItem> {
   const todoId = uuid.v4();
   const userId = getUserId(jwtToken);
   const createdAt = new Date().toISOString();
@@ -28,7 +30,7 @@ export async function createTodo(jwtToken: string, newTodoData: TodoCreate): Pro
 export async function updateTodo(
   jwtToken: string,
   todoId: string,
-  updateData: TodoUpdate
+  updateData: UpdateTodoRequest
 ): Promise<void> {
   const userId = getUserId(jwtToken);
   return todoAccess.updateTodo(userId, todoId, updateData);

@@ -18,12 +18,12 @@ export const handler: APIGatewayProxyHandler = async (
   };
 
   try {
-    const todoList: TodoItem[] = await getTodos(jwtToken);
+    const items: TodoItem[] = await getTodos(jwtToken);
     logger.info('Successfully retrieved todolist');
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ todoList })
+      body: JSON.stringify({ items })
     };
   } catch (error) {
     logger.error(`Error: ${error.message}`);

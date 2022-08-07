@@ -3,7 +3,8 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } f
 import { createTodo } from '../../businessLogic/todos';
 import { createLogger } from '../../utils/logger';
 import { getToken } from '../../utils/getJwt';
-import { TodoCreate, TodoItem } from '../../models/Todo.d';
+import { TodoItem } from '../../models/Todo.d';
+import { CreateTodoRequest } from '../../requests/CreateTodoRequest';
 
 const logger = createLogger('createTodo');
 
@@ -12,7 +13,7 @@ export const handler: APIGatewayProxyHandler = async (
 ): Promise<APIGatewayProxyResult> => {
   logger.info('Processing CreateTodo event...');
   const jwtToken: string = getToken(event);
-  const newTodoData: TodoCreate = JSON.parse(event.body);
+  const newTodoData: CreateTodoRequest = JSON.parse(event.body);
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true

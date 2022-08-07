@@ -1,6 +1,6 @@
 org: tinhpt94
-app: uda-todo-app
-service: uda-todo-app
+app: udacity-todo-app
+service: udacity-todo-app
 
 plugins:
   - serverless-webpack

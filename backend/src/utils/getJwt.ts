@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { decode } from 'jsonwebtoken';
-import { JwtPayload } from '../lambda/auth/jwt';
+import { JwtPayload } from '../models/jwt';
 
 /**
  * Get JWT token from an API Gateway event
