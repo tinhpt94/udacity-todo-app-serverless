@@ -88,7 +88,8 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
       await updateTodo(this.props.auth.getIdToken(), todo.todoId, {
         name: todo.name,
         dueDate: todo.dueDate,
-        done: !todo.done
+        done: !todo.done,
+        highPriority: todo.highPriority
       });
       this.setState({
         todos: update(this.state.todos, {
@@ -96,7 +97,26 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
         })
       });
     } catch {
-      alert('Todo deletion failed');
+      alert('Todo update failed');
+    }
+  };
+
+  onHighPriorityCheck = async (pos: number) => {
+    try {
+      const todo = this.state.todos[pos];
+      await updateTodo(this.props.auth.getIdToken(), todo.todoId, {
+        name: todo.name,
+        dueDate: todo.dueDate,
+        done: todo.done,
+        highPriority: !todo.highPriority
+      });
+      this.setState({
+        todos: update(this.state.todos, {
+          [pos]: { highPriority: { $set: !todo.highPriority } }
+        })
+      });
+    } catch {
+      alert('Todo update failed');
     }
   };
 
@@ -158,16 +178,42 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
   renderTodosList() {
     return (
       <Grid padded>
+        <Grid.Row>
+          <Grid.Column width={1} verticalAlign="middle">
+            Done Status
+          </Grid.Column>
+              <Grid.Column width={1} verticalAlign="middle">
+                Priority
+              </Grid.Column>
+              <Grid.Column width={8} verticalAlign="middle">
+                Name
+              </Grid.Column>
+              <Grid.Column width={4} floated="right">
+                Due Date
+              </Grid.Column>
+              <Grid.Column width={1} floated="right">
+                Edit
+              </Grid.Column>
+              <Grid.Column width={1} floated="right">
+                Delete
+              </Grid.Column>
+              <Grid.Column width={16}>
+                <Divider />
+              </Grid.Column>
+        </Grid.Row>
         {this.state.todos.map((todo, pos) => {
           return (
             <Grid.Row key={todo.todoId}>
               <Grid.Column width={1} verticalAlign="middle">
                 <Checkbox onChange={() => this.onTodoCheck(pos)} checked={todo.done} />
               </Grid.Column>
-              <Grid.Column width={10} verticalAlign="middle">
+              <Grid.Column width={1} verticalAlign="middle">
+                <Checkbox onChange={() => this.onHighPriorityCheck(pos)} checked={todo.highPriority} />
+              </Grid.Column>
+              <Grid.Column width={8} verticalAlign="middle" className={todo.highPriority ? 'red': ''}>
                 {todo.name}
               </Grid.Column>
-              <Grid.Column width={3} floated="right">
+              <Grid.Column width={4} floated="right">
                 {todo.dueDate}
               </Grid.Column>
               <Grid.Column width={1} floated="right">

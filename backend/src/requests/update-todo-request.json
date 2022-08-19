@@ -11,8 +11,11 @@
     },
     "done": {
       "type": "boolean"
+    },
+    "highPriority": {
+      "type": "boolean"
     }
   },
-  "required": ["name", "dueDate", "done"],
+  "required": ["name", "dueDate", "done", "highPriority"],
   "additionalProperties": false
 }

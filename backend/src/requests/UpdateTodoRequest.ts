@@ -5,4 +5,5 @@
   name: string
   dueDate: string
   done: boolean
+  highPriority: boolean
 }

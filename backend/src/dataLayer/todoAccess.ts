@@ -62,12 +62,13 @@ export class TodoAccess {
         TableName: this.todosTable,
         Key: { userId, todoId },
         ConditionExpression: 'attribute_exists(todoId)',
-        UpdateExpression: 'set #n = :n, dueDate = :due, done = :dn',
+        UpdateExpression: 'set #n = :n, dueDate = :due, done = :dn, highPriority = :highPriority',
         ExpressionAttributeNames: { '#n': 'name' },
         ExpressionAttributeValues: {
           ':n': updateData.name,
           ':due': updateData.dueDate,
-          ':dn': updateData.done
+          ':dn': updateData.done,
+          ":highPriority": updateData.highPriority
         }
       })
       .promise();

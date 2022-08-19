@@ -6,6 +6,7 @@ export interface TodoItem {
   dueDate: string;
   done: boolean;
   attachmentUrl: string;
+  highPriority: boolean;
 }
 
 export interface GetTodosResp {
@@ -32,6 +33,7 @@ export interface TodoUpdate {
   name: string;
   dueDate: string;
   done: boolean;
+  highPriority: boolean;
 }
 
 export interface UploadUrl {

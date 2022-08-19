@@ -34,7 +34,8 @@ export class EditTodo extends React.PureComponent<EditTodoProps, EditTodoState> 
       name: '',
       dueDate: '',
       done: false,
-      attachmentUrl: ''
+      attachmentUrl: '',
+      highPriority: false
     },
     file: undefined,
     uploadState: UploadState.NoUpload
